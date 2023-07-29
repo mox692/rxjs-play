@@ -47,10 +47,20 @@ const simpleObservable1 = new Observable((subscriber: Subscriber<number>) => {
     subscriber.next(1)
     subscriber.next(2)
     subscriber.next(3)
+    subscriber.error("some error message")
+    subscriber.complete()
 })
 
-simpleObservable1.subscribe((data: number) => {
-    console.log(`data: ${data}`)
+// define only next handler
+// simpleObservable1.subscribe((data: number) => {
+//     console.log(`data: ${data}`)
+// })
+
+// define all handler
+simpleObservable1.subscribe({
+    next: (x: number) => console.log(`value: ${x}`),
+    error: (err: any) => console.log(`error: ${err}`),
+    complete: () => console.log("subscription completed")
 })
 
 const asyncObservable = new Observable((subscriber: Subscriber<Promise<number>>) => {
@@ -64,5 +74,4 @@ asyncObservable.subscribe((data: Promise<number>) => {
     data.then((x: number) =>{
         console.log(`resolved data: ${x}`)
     })
-    
 })
