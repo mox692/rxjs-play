@@ -1,53 +1,22 @@
 {
-  "name": "",
+  "name": "rxjs-test",
+  "version": "1.0.0",
   "description": "",
-  "repository": "",
-  "homepage": "",
-  "author": "",
-  "keywords": [],
-  "private": true,
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=13.2.0"
-  },
-  "main": "./build/index.js",
-  "files": [
-    "build/lib/**/*",
-    "build/index.*",
-    "build/types/**/*"
-  ],
+  "main": "index.js",
   "scripts": {
-    "test": "npm run build && mocha --inspect --require source-map-support/register --bail ./build/test/",
-    "build": "rimraf build && tsc && tsc-alias",
-    "preversion": "npm run lint && npm run build && npm test",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && npm run format && git add -A",
-    "postversion": "git push --follow-tags && npm publish",
-    "lint": "eslint --ext ts,js --fix src",
-    "format": "prettier src/**/*.ts -w",
-    "build-live": "tsc -w && tsc-alias -w"
+    "start": "webpack-dev-server --mode development"
   },
-  "license": "MIT",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "commander": "^7.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.0",
+    "ts-loader": "^4.4.2",
+    "typescript": "^2.9.2",
+    "webpack": "^4.16.1",
+    "webpack-dev-server": "^3.1.4"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.18",
-    "@types/fs-extra": "^9.0.11",
-    "@types/mocha": "^8.2.2",
-    "@types/node": "^15.6.0",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
-    "chai": "^4.3.4",
-    "conventional-changelog-cli": "^2.1.1",
-    "eslint": "^7.27.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "fs-extra": "^10.0.0",
-    "mocha": "^8.4.0",
-    "prettier": "^2.3.0",
-    "rimraf": "^3.0.2",
-    "source-map-support": "^0.5.19",
-    "tsc-alias": "^1.2.11",
-    "typescript": "next"
+    "webpack-cli": "^3.1.0"
   }
 }
