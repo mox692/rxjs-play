@@ -1,8 +1,10 @@
-import { bufferTime, filter, fromEvent, scan, map, Observable, Subscriber } from 'rxjs';
+import { bufferTime, filter, fromEvent, scan, map, Observable, Subscriber, buffer } from 'rxjs';
 
 const button = document.getElementById("firstButton")
 const multipleOperatorFunctionButton = document.getElementById("multipleOperatorFunction")
 const doubleClick = document.getElementById("doubleClick")
+const keyEvent = document.getElementById("keyEvent")
+
 
 /**
  * Simple getting started Example
@@ -37,6 +39,21 @@ fromEvent(doubleClick, 'click')
     .subscribe((_: any) => 
         console.log(`double click detected!!`)
     )
+
+// 特定のKeyEventの並びが確認できたらsubscribeするようなパターン
+// TODO: Eventが1つとして流れてきてしまう.
+fromEvent(keyEvent, 'keydown')
+    .pipe(
+        buffer(fromEvent(keyEvent, 'keydown')),
+        map((keyEvents: KeyboardEvent[]) => { console.log(keyEvents); return keyEvents}),
+        filter((keyEvents: KeyboardEvent[]) => keyEvents.map(event => event.key).join("") === "abc")
+    )
+    .subscribe({
+        next: (keyValue: Event[])  => console.log(`you've typed ${keyValue}, correct name!`),
+        error: (err: any) => console.log(`error: ${err}`),
+        complete: () => console.log("complete")
+    })
+
 
 /**
  * Observable Example
